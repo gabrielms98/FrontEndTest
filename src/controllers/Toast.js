@@ -4,12 +4,19 @@ export default class Toast extends HTMLElement {
     this.WRAPPER_CLASS = "toastWrapper";
   }
 
+  /**
+   * Show toast handler
+   *
+   * @param {CustomEvent} event the event object
+   */
   showToast(event) {
     const {
       detail: { message, type },
     } = event;
 
     const alertInstance = this.alert(message, type);
+
+    if (!alertInstance) return;
 
     setTimeout(() => {
       alertInstance.close();
@@ -22,13 +29,9 @@ export default class Toast extends HTMLElement {
    * @param {string} message the message to be displayed
    * @param {string} type the type of the alert
    *
-   * @returns {string} the alert HTML
+   * @returns {bootstrap.Alert} the alert instance
    */
   alert(message, type) {
-    const toastContainer = this.querySelector(`.${this.WRAPPER_CLASS}`);
-
-    if (!toastContainer) return;
-
     const ALERT = document.createElement("div");
     ALERT.innerHTML = `
         <div class="alert alert-${type} alert-dismissible show fade" role="alert">
@@ -37,7 +40,7 @@ export default class Toast extends HTMLElement {
         </div>
       `;
 
-    toastContainer.appendChild(ALERT);
+    this.appendChild(ALERT);
 
     return bootstrap.Alert.getOrCreateInstance(ALERT);
   }

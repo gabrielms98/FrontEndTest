@@ -1,3 +1,12 @@
+/**
+ * Events list
+ *
+ * uploadFile: upload file
+ * getUploadedFiles: get uploaded files
+ * fileUploaded: file uploaded
+ * uploadedFiles: uploaded files
+ */
+
 export default class UploadHandler extends HTMLElement {
   constructor() {
     super();
@@ -21,17 +30,38 @@ export default class UploadHandler extends HTMLElement {
     const { detail: files } = event;
     for (const file of files) {
       if (!file.size) {
-        console.log("file is empty");
+        document.body.dispatchEvent(
+          new CustomEvent("showToast", {
+            detail: {
+              message: "File is empty",
+              type: "danger",
+            },
+          }),
+        );
         return;
       }
 
-      if (file.size > 1000000) {
-        console.log("file size is too big");
+      if (file.size > 1_000_000) {
+        document.body.dispatchEvent(
+          new CustomEvent("showToast", {
+            detail: {
+              message: "File size is too big",
+              type: "success",
+            },
+          }),
+        );
         return;
       }
 
       if (file.type && !this.ALLOWED_FILE_TYPES.includes(file.type)) {
-        console.log("file type is not allowed");
+        document.body.dispatchEvent(
+          new CustomEvent("showToast", {
+            detail: {
+              message: "File type is not allowed",
+              type: "danger",
+            },
+          }),
+        );
         return;
       }
 
@@ -54,14 +84,59 @@ export default class UploadHandler extends HTMLElement {
           detail: this.files,
         }),
       );
+
+      document.body.dispatchEvent(new CustomEvent("getUploadedFiles"));
     }, 1000);
+  }
+
+  /**
+   * Handle the get uploaded files request
+   */
+  async getUploadedFiles(evens$) {
+    const { detail: filters } = evens$;
+
+    const files = await this.fetchUploadedFiles(filters);
+
+    document.body.dispatchEvent(
+      new CustomEvent("uploadedFiles", {
+        detail: files,
+      }),
+    );
+  }
+
+  /**
+   * Fetch the uploaded files (idealy this should be a request to the server)
+   *
+   * @param {Object} filters the filters to be applied
+   *
+   * @returns {File[]} the uploaded files
+   */
+  async fetchUploadedFiles(filters) {
+    return new Promise((resolve, _) => {
+      setTimeout(() => {
+        resolve(
+          this.files.filter((file) => {
+            return (
+              !filters ||
+              (file && file.name.toLowerCase().includes(filters.toLowerCase()))
+            );
+          }),
+        );
+      }, 1000);
+    });
   }
 
   connectedCallback() {
     this.files = [];
+
     document.body.addEventListener(
       "uploadFile",
       this.onUploadHandler.bind(this),
+    );
+
+    document.body.addEventListener(
+      "getUploadedFiles",
+      this.getUploadedFiles.bind(this),
     );
   }
 

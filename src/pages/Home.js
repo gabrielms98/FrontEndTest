@@ -13,25 +13,8 @@ export default class Home extends HTMLElement {
   }
 
   connectedCallback() {
+    this.loadChildComponents();
     if (this.shouldLoadComponent()) this.render();
-
-    this.querySelector("#file-uploader").addEventListener(
-      "change",
-      this.onFileUpload,
-    );
-  }
-
-  /**
-   * This method is used to handle the file upload event
-   *
-   * @param {Event} event the event object
-   */
-  onFileUpload(event$) {
-    document.body.dispatchEvent(
-      new CustomEvent("uploadFile", {
-        detail: event$.target.files,
-      }),
-    );
   }
 
   /**
@@ -40,23 +23,29 @@ export default class Home extends HTMLElement {
   render() {
     this.innerHTML = `
         <main class="home">
-          <section>
-            <h3>Load file</h3>
-
-            <div class="home__file">
-              <label class="home__file__label" for="file-uploader">
-                <div class="home__file__label__images">
-                  <img src="https://img.icons8.com/ios/50/000000/upload.png" />
-                  <img src="https://img.icons8.com/ios/50/000000/upload.png" />
-                  <img src="https://img.icons8.com/ios/50/000000/upload.png" />
-                  <img src="https://img.icons8.com/ios/50/000000/upload.png" />
-                </div>
-                <span> Drag and drop or click to select files to upload.</span>
-              </label>
-              <input type="file" id="file-uploader" name="file" />
-            </div>
-          </section>
+          <o-upload-file></o-upload-file>
+          <o-list-files></o-list-files>
         </main>
       `;
+  }
+
+  /**
+   * This method is used to load the child components
+   */
+  loadChildComponents() {
+    Promise.all([
+      import("../components/Upload.js").then((module) => [
+        "o-upload-file",
+        module.default,
+      ]),
+      import("../organismis/ListFiles.js").then((module) => [
+        "o-list-files",
+        module.default,
+      ]),
+    ]).then((components) => {
+      components.forEach(([selector, component]) => {
+        customElements.define(selector, component);
+      });
+    });
   }
 }

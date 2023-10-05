@@ -1,0 +1,29 @@
+.uploadedFile {
+  max-width: 100%;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+
+  border: 1px solid $clr-border;
+  border-radius: $border-radius;
+  padding: .5rem;
+
+  & img {
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    &__name {
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    &__type {
+      font-size: 0.7rem;
+    }
+  }
+}

@@ -19,9 +19,11 @@
   </head>
   <body>
     <c-upload-handler>
-      <c-header></c-header>
-      <c-toast></c-toast>
-      <home-page></home-page>
+      <o-header></o-header>
+      <div class="container">
+        <c-toast></c-toast>
+        <o-home-page></o-home-page>
+      </div>
     </c-upload-handler>
 
     <script rel="preload" type="module">
@@ -37,12 +39,12 @@
         ]),
         // Components
         import("./src/components/Header.js").then((module) => [
-          "c-header",
+          "o-header",
           module.default,
         ]),
         // Pages
         import("./src/pages/Home.js").then((module) => [
-          "home-page",
+          "o-home-page",
           module.default,
         ]),
       ]).then((elements) => {
