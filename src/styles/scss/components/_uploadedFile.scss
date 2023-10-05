@@ -8,9 +8,15 @@
 
   border: 1px solid $clr-border;
   border-radius: $border-radius;
-  padding: .5rem;
+  padding: 0.5rem;
 
   & img {
+    width: 3rem;
+    height: 3rem;
+
+    object-fit: cover;
+
+    border-radius: $border-radius;
   }
 
   &__content {

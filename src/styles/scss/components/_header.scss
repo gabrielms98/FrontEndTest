@@ -20,6 +20,21 @@
   &__nav {
     display: none;
 
+    &__list {
+      display: flex;
+      gap: 1rem;
+    }
+
+    &__list a {
+      all: unset;
+
+      cursor: pointer;
+      &:hover {
+        color: var(--bs-primary);
+        transition: color 0.2s ease-in-out;
+      }
+    }
+
     @include sm {
       display: flex;
     }

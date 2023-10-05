@@ -11,7 +11,23 @@
 
   &__header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+
+    @include sm {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__paginator {
+    display: flex;
+    justify-content: center;
     align-items: center;
+    gap: 1rem;
+
+    @include sm {
+      justify-content: center;
+    }
   }
 }

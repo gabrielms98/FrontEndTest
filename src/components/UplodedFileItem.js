@@ -1,3 +1,5 @@
+import isImage from "../utils/isImage.js";
+
 export default class UplodedFileItem extends HTMLElement {
   constructor(file = undefined) {
     super();
@@ -19,9 +21,11 @@ export default class UplodedFileItem extends HTMLElement {
           </div>
         </div>
       `;
-  }
 
-  loadChildComponents() {}
+    if (isImage(file)) {
+      this.querySelector("img").src = URL.createObjectURL(file);
+    }
+  }
 
   /**
    * This method is used to check if the component should be loaded or not

@@ -24,6 +24,15 @@ export default class Header extends HTMLElement {
                         <li class="header__nav__list__item">
                             <a href="/">Home</a>
                         </li>
+                        <li class="header__nav__list__item">
+                            <a href="/">Contact</a>
+                        </li>
+                        <li class="header__nav__list__item">
+                            <a href="/">Another</a>
+                        </li>
+                        <li class="header__nav__list__item">
+                            <a href="/">Profile</a>
+                        </li>
                     </ul>
                 </nav>
 

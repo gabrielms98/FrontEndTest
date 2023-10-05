@@ -20,6 +20,7 @@ export default class ListFiles extends HTMLElement {
             <o-search-input></o-search-input> 
           </div>
           <div class="list__files"> </div>
+          <div class="list__paginator"> </div>
         </section>
       `;
 
@@ -31,17 +32,23 @@ export default class ListFiles extends HTMLElement {
     list.innerHTML = "";
 
     this.loadChildComponents().then((component) => {
-      const [componentInstance] = component;
+      const [uploadedItemInstance, , paginationInstance] = component;
 
       if (!this.files.length)
         list.innerHTML = "There is no files uploaded yet...";
       else {
-        const [, UploadedItem] = componentInstance;
+        console.log(uploadedItemInstance);
+        const [, UploadedItem] = uploadedItemInstance;
+        const [, Paginator] = paginationInstance;
 
         for (const file of this.files) {
           const item = new UploadedItem(file);
           list.appendChild(item);
         }
+
+        const paginator = new Paginator();
+
+        this.querySelector(".list__paginator").appendChild(paginator);
       }
     });
   }
@@ -54,6 +61,10 @@ export default class ListFiles extends HTMLElement {
       ]),
       import("../components/Search.js").then((module) => [
         "o-search-input",
+        module.default,
+      ]),
+      import("../components/Paginator.js").then((module) => [
+        "o-paginator",
         module.default,
       ]),
     ]).then((components) => {
