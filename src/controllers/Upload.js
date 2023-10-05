@@ -1,15 +1,15 @@
 export default class UploadHandler extends HTMLElement {
-  ALLOWED_FILE_TYPES = [
-    "image/png",
-    "image/jpeg",
-    "image/jpg",
-    "image/gif",
-    "image/svg",
-    "application/pdf",
-  ];
-
   constructor() {
     super();
+
+    this.ALLOWED_FILE_TYPES = [
+      "image/png",
+      "image/jpeg",
+      "image/jpg",
+      "image/gif",
+      "image/svg",
+      "application/pdf",
+    ];
   }
 
   /**
@@ -34,13 +34,24 @@ export default class UploadHandler extends HTMLElement {
         console.log("file type is not allowed");
         return;
       }
+
+      this.files.push(file);
     }
 
     // mock upload file
     setTimeout(() => {
       document.body.dispatchEvent(
+        new CustomEvent("showToast", {
+          detail: {
+            message: "File uploaded successfully",
+            type: "success",
+          },
+        }),
+      );
+
+      document.body.dispatchEvent(
         new CustomEvent("fileUploaded", {
-          detail: files,
+          detail: this.files,
         }),
       );
     }, 1000);
@@ -48,10 +59,13 @@ export default class UploadHandler extends HTMLElement {
 
   connectedCallback() {
     this.files = [];
-    document.body.addEventListener("uploadFile", this.onUploadHandler);
+    document.body.addEventListener(
+      "uploadFile",
+      this.onUploadHandler.bind(this),
+    );
   }
 
   disconnectedCallback() {
-    this.removeEventListener("uploadFile", this.onUploadHandler);
+    this.removeEventListener("uploadFile", this.onUploadHandler.bind(this));
   }
 }

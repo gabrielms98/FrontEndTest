@@ -20,13 +20,19 @@
   <body>
     <c-upload-handler>
       <c-header></c-header>
+      <c-toast></c-toast>
       <home-page></home-page>
     </c-upload-handler>
+
     <script rel="preload" type="module">
       Promise.all([
         // Controllers
-        import("./src/controllers/UploadHandler.js").then((module) => [
+        import("./src/controllers/Upload.js").then((module) => [
           "c-upload-handler",
+          module.default,
+        ]),
+        import("./src/controllers/Toast.js").then((module) => [
+          "c-toast",
           module.default,
         ]),
         // Components
