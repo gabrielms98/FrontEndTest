@@ -10,7 +10,7 @@
 <img align="right" width="300" src="https://i2.wp.com/allhtaccess.info/wp-content/uploads/2018/03/programming.gif?fit=1281%2C716&ssl=1" />
 
 ```python
-## Using the Referencia 2 mockup, develop a functional interface
+## Using the Referencia 1 mockup, develop a functional interface
 ## for uploading a file. Check the extension we will only 
 ## accept specific formats. The design necessarily needs 
 ## to be responsive.
