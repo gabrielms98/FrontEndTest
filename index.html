@@ -15,8 +15,36 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="./src/styles/css/style.css" />
   </head>
   <body>
-    <script rel="preload" type="module"></script>
+    <c-upload-handler>
+      <c-header></c-header>
+      <home-page></home-page>
+    </c-upload-handler>
+    <script rel="preload" type="module">
+      Promise.all([
+        // Controllers
+        import("./src/controllers/UploadHandler.js").then((module) => [
+          "c-upload-handler",
+          module.default,
+        ]),
+        // Components
+        import("./src/components/Header.js").then((module) => [
+          "c-header",
+          module.default,
+        ]),
+        // Pages
+        import("./src/pages/Home.js").then((module) => [
+          "home-page",
+          module.default,
+        ]),
+      ]).then((elements) => {
+        elements.forEach((element) => {
+          if (element && !customElements.get(element[0]))
+            customElements.define(...element);
+        });
+      });
+    </script>
   </body>
 </html>

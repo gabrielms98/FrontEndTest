@@ -1,0 +1,19 @@
+{
+  "name": "frontendtest",
+  "version": "1.0.0",
+  "description": "<h1 align=\"right\"> 📄<br>FrontEnd Test V1.0 </h1>",
+  "main": "index.html",
+  "scripts": {
+    "build:css": "sass src/styles/scss/main.scss src/styles/css/style.css",
+    "watch:css": "sass src/styles/scss/main.scss src/styles/css/style.css --watch",
+    "start": "lite-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "lite-server": "^2.6.1",
+    "sass": "^1.68.0"
+  }
+}

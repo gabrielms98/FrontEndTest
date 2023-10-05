@@ -1,0 +1,44 @@
+.header {
+  width: 100vw;
+  background: linear-gradient(180deg, $clr-primary 0%, #ffffff 29.69%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem;
+
+  border-bottom: 1px solid $clr-border;
+
+  &__logo {
+    &__img {
+      aspect-ratio: 16/9;
+      width: 6rem;
+    }
+  }
+
+  &__nav {
+    display: none;
+
+    @include sm {
+      display: flex;
+    }
+  }
+
+  &__hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    @include sm {
+      display: none;
+    }
+
+    &__line {
+      width: 1rem;
+      height: 2px;
+      background-color: $ff-primary;
+      border-radius: 1rem;
+    }
+  }
+}
