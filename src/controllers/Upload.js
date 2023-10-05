@@ -68,6 +68,8 @@ export default class UploadHandler extends HTMLElement {
       this.files.push(file);
     }
 
+    document.body.dispatchEvent(new CustomEvent("uploadingFile"));
+
     // mock upload file
     setTimeout(() => {
       document.body.dispatchEvent(

@@ -68,6 +68,11 @@ body {
   padding: 1rem 0;
 }
 
+.upload__file {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
 .upload__file__label {
   width: 100%;
   display: flex;
@@ -94,6 +99,25 @@ body {
 }
 .upload__file input[type=file] {
   display: none;
+}
+.upload__file__loading {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0.5rem;
+  background-color: var(--bs-primary);
+}
+.upload__file__loading--active {
+  animation: loading 0.9s linear;
+}
+@keyframes loading {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .list {

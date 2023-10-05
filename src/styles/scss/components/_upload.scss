@@ -1,5 +1,9 @@
 .upload {
   &__file {
+    position: relative;
+    overflow: hidden;
+    border-radius: $border-radius;
+
     &__label {
       width: 100%;
 
@@ -34,6 +38,29 @@
 
     & input[type="file"] {
       display: none;
+    }
+
+    &__loading {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0.5rem;
+
+      background-color: var(--bs-primary);
+
+      &--active {
+        animation: loading 0.9s linear;
+
+        @keyframes loading {
+          0% {
+            width: 0;
+          }
+          100% {
+            width: 100%;
+          }
+        }
+      }
     }
   }
 }
